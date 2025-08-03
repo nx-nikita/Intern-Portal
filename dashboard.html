@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Intern Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard-container">
+    <header class="dashboard-header">
+      <h1>🚀 Intern Dashboard</h1>
+      <p class="welcome-msg">Welcome! Track your progress and achievements below.</p>
+    </header>
+
+    <section class="intern-info">
+      <p id="name">Name: Loading...</p>
+      <p id="referral">Referral Code: Loading...</p>
+      <p id="donation">Total Donations Raised: ₹0</p>
+    </section>
+
+    <section class="rewards">
+      <h2>🎖️ Your Rewards</h2>
+      <ul class="reward-list">
+        <li>🥉 Bronze Badge - Starter Level</li>
+        <li>🥈 Silver Badge - Midway Achiever</li>
+        <li>🥇 Gold Badge - Top Performer</li>
+      </ul>
+    </section>
+
+    <section class="actions">
+      <a href="leaderboard.html" class="leaderboard-link">🏆 View Leaderboard</a>
+      
+    </section>
+
+    <footer class="dashboard-footer">
+      <p>Need help? <a href="#">Contact Support</a> | © 2025 Intern Program</p>
+    </footer>
+  </div>
+
+  <script>
+    fetch('http://localhost:5000/api/intern')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('name').innerText = "Name: " + data.name;
+        document.getElementById('referral').innerText = "Referral Code: " + data.referral;
+        document.getElementById('donation').innerText = "Total Donations Raised: ₹" + data.amount;
+      });
+  </script>
+</body>
+</html>
