@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="leaderboard-container">
+
+    <!-- Header -->
+    <header class="leaderboard-header">
+      <h2>🏆 Top Performing Interns</h2>
+      <p class="subtitle">See who’s raising the most and making an impact!</p>
+    </header>
+
+    <!-- Leaderboard List -->
+    <ul id="leaderboard-list" class="styled-leaderboard"></ul>
+
+    <!-- New: Intern Highlight -->
+    <section class="intern-highlight">
+      <h3>🌟 Intern Spotlight</h3>
+      <div class="highlight-card">
+        <p><strong>Name:</strong> Priya Verma</p>
+        <p><strong>Donations Raised:</strong> ₹12,500</p>
+        
+    </section>
+
+    <!-- New: Milestone Tracker -->
+    <section class="milestone-section">
+      <h3>🎯 Team Milestones</h3>
+      <ul class="milestone-list">
+        <li>✅ ₹10,000 raised – Bronze Tier Unlocked</li>
+        <li>✅ ₹25,000 raised – Silver Tier Unlocked</li>
+        <li>🔓 ₹50,000 Goal – Gold Tier in progress...</li>
+      </ul>
+
+      <div class="progress-bar">
+        <div class="progress" style="width: 58%;"></div>
+      </div>
+    </section>
+
+    
+
+    <!-- Back Button -->
+    <div class="back-link">
+      <a href="dashboard.html">⬅ Back to Dashboard</a>
+    </div>
+
+  </div>
+
+  <script>
+    fetch('http://localhost:5000/api/leaderboard')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('leaderboard-list');
+        data.forEach((item, index) => {
+          const li = document.createElement('li');
+          let medal = '';
+          if (index === 0) medal = '🥇 ';
+          else if (index === 1) medal = '🥈 ';
+          else if (index === 2) medal = '🥉 ';
+          else medal = `${index + 1}. `;
+
+          li.innerHTML = `<span class="rank">${medal}</span> <span class="name">${item.name}</span> <span class="amount">₹${item.amount}</span>`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
